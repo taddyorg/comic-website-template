@@ -1,6 +1,5 @@
 
 
-
 # Are you a developer? - You can run this project locally
 
 If you're a developer and you want to run this project locally, you can do so by following these steps:
