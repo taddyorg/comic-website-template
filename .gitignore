@@ -1,6 +1,12 @@
-node_modules
-web_modules
+node_modules/
+web_modules/
+build/
+.vscode/
+.cache/
+.config/
+.data/
 .firebase
 .firebaserc
 .glitchdotcom.json
-build
+*.tar
+.DS_Store

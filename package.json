@@ -1,7 +1,7 @@
 {
-  "name": "glitch-hello-react",
-  "version": "0.0.5",
-  "description": "A simple React single page app, built with Vite and React.",
+  "name": "comic-website-template",
+  "version": "1.0.0",
+  "description": "A template for creating a comic website on glitch.com",
   "scripts": {
     "start": "vite",
     "build": "vite build",
@@ -10,23 +10,22 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-spring": "^9.7.3",
     "wouter": "^2.12.1",
-    "react-helmet-async": "^2.0.4",
-    "@vitejs/plugin-react": "^4.2.1"
+    "react-helmet-async": "^2.0.4"
   },
   "devDependencies": {
-    "vite": "^4.0.0"
+    "vite": "^4.5.2",
+    "@vitejs/plugin-react": "^4.2.1"
   },
   "browserslist": [
     ">0.2%",
     "not dead"
   ],
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/glitch-hello-react"
+    "url": "https://github.com/taddyorg/comic-website-template"
   },
   "glitch": {
     "projectType": "generated_static"
