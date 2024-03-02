@@ -1,67 +1,151 @@
-import * as React from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import config from '../../data';
+import { getImageUrl } from '../../utils';
+import { Loading, Seo, Episode } from '../components';
 import { Link } from "wouter";
 
-// Our language strings for the header
-const strings = [
-  "Hello React",
-  "Salut React",
-  "Hola React",
-  "안녕 React",
-  "Hej React"
-];
+export default function Home() {
+  const [comicseries, setComicSeries] = useState(null);
 
-// Utility function to choose a random value from the language array
-function randomLanguage() {
-  return strings[Math.floor(Math.random() * strings.length)];
+  useEffect(() => {
+    axios.get(config.sssUrl)
+      .then(response => {
+        setComicSeries(response.data);
+      })
+      .catch(error => console.error("There was an error fetching the data:", error));
+  }, []);
+
+  if (!comicseries) {
+    return <Loading />;
+  }
+
+  return (
+    <div>
+      <CoverBanner comicseries={comicseries} />
+      {/* <Name comicseries={comicseries} /> */}
+      <WhereToReadLinks />
+      <LatestEpisodes comicseries={comicseries} numberOfEpisodes={5}/>
+    </div>
+  );
 }
 
-/**
-* The Home function defines the content that makes up the main content of the Home page
-*
-* This component is attached to the /about path in router.jsx
-* The function in app.jsx defines the page wrapper that this appears in along with the footer
-*/
+const Name = ({ comicseries, pageType }) => {
+  return (<h1 className="text-9xl font-bold text-primary">{comicseries.name}</h1>);
+}
 
-export default function Home() {
-  /* We use state to set the hello string from the array https://reactjs.org/docs/hooks-state.html
-     - We'll call setHello when the user clicks to change the string
-  */
-  const [hello, setHello] = React.useState(strings[0]);
-  
-  // When the user clicks we change the header language
-  const handleChangeHello = () => {
-    
-    // Choose a new Hello from our languages
-    const newHello = randomLanguage();
-    
-    // Call the function to set the state string in our component
-    setHello(newHello);
-  };
+const CoverBanner = ({ comicseries }) => {
   return (
-    <>
-      <h1 className="title">{hello}!</h1>
-      {/* When the user hovers over the image we apply the wiggle style to it */}
-        <img
-          src="https://cdn.glitch.com/2f80c958-3bc4-4f47-8e97-6a5c8684ac2c%2Fillustration.svg?v=1618196579405"
-          className="illustration"
-          onClick={handleChangeHello}
-          alt="Illustration click to change language"
-        />
-      <div className="navigation">
-        {/* When the user hovers over this text, we apply the wiggle function to the image style */}
-          <a className="btn--click-me" onClick={handleChangeHello}>
-            Psst, click me
-          </a>
-      </div>
-      <div className="instructions">
-        <h2>Using this project</h2>
-        <p>
-          This is the Glitch <strong>Hello React</strong> project. You can use
-          it to build your own app. See more info in the{" "}
-          <Link href="/about">About</Link> page, and check out README.md in the
-          editor for additional detail plus next steps you can take!
-        </p>
-      </div>
-    </>
+    <div className="w-full">
+      <img
+        src={getImageUrl({ image: comicseries.bannerImage, type:'banner', variant: 'md' })}
+        alt={'comic banner art'}
+        className="w-full sm:h-80 object-cover"
+      />
+    </div>
   );
+}
+
+const LatestEpisodes = ({ comicseries, numberOfEpisodes }) => {
+  if (!comicseries.issues || comicseries.issues.length === 0) {
+    return (<></>);
+  }
+
+  const issues = [...comicseries.issues];
+
+  const lastXEpisodes = issues.slice(-Math.abs(numberOfEpisodes)).reverse();
+
+  return (
+    <div>
+      <h2 className="text-4xl text-secondary font-bold">Latest Episodes</h2>
+      <div>
+        {lastXEpisodes.map((episode, index) => (
+          <Episode key={index} episode={episode} />
+        ))}
+      </div>
+      {comicseries.issues.length > numberOfEpisodes && (
+        <a href="/episodes" className="text-2xl text-secondary font-bold">See all episodes</a>
+      )}
+    </div>
+  );
+}
+
+const WEBTOON = 'WEBTOON';
+const TAPAS = 'TAPAS';
+const INKVERSE = 'INKVERSE';
+const NAMICOMI = 'NAMICOMI';
+const GLOBALCOMIX = 'GLOBALCOMIX';
+const MANGAPLUS = 'MANGAPLUS';
+
+const WhereToReadLinks = () => {
+  const webtoonLinksObj = config.webtoonLinks;
+  const webtoonLinkValues = new Set(Object.values(webtoonLinksObj));
+  
+  if (webtoonLinkValues.size === 1 && webtoonLinkValues.has('')) {
+    return (<></>);
+  }
+
+  const webtoonUrl = webtoonLinksObj[WEBTOON];
+  const tapasUrl = webtoonLinksObj[TAPAS];
+  const inkverseUrl = webtoonLinksObj[INKVERSE];
+  const namicomiUrl = webtoonLinksObj[NAMICOMI];
+  const globalcomixUrl = webtoonLinksObj[GLOBALCOMIX];
+  const mangaplusUrl = webtoonLinksObj[MANGAPLUS];
+  
+  return (
+    <div className='bg-secondary-background pb-4 rounded-lg'>
+      <h2 className="text-4xl text-secondary font-bold text-center pt-4 rounded-4xl">Where to Read</h2>
+      <div className="grid grid-cols-3 gap-8 items-center justify-items-center">
+        {webtoonUrl && (
+          <ComicPlatform type={WEBTOON} url={webtoonUrl} />
+        )}
+        {tapasUrl && (
+          <ComicPlatform type={TAPAS} url={tapasUrl} />
+        )}
+        {inkverseUrl && (
+          <ComicPlatform type={INKVERSE} url={inkverseUrl} isBanner/>
+        )}
+        {namicomiUrl && (
+          <ComicPlatform type={NAMICOMI} url={namicomiUrl} />
+        )}
+        {globalcomixUrl && (
+          <ComicPlatform type={GLOBALCOMIX} url={globalcomixUrl} />
+        )}
+        {mangaplusUrl && (
+          <ComicPlatform type={MANGAPLUS} url={mangaplusUrl} />
+        )}
+      </div>
+    </div>
+  );
+}
+
+const ComicPlatform = ({ type, url, isBanner }) => {
+  return (
+    <a href={url} target='_blank' rel='noreferrer noopener' className={`flex justify-center items-center ${isBanner ? "h-40" : "h-24"}`}>
+      <img
+        src={getComicPlatformImageUrl(type)}
+        alt={`link to ${type}`}
+        className="object-contain object-center h-full"
+      />
+    </a>
+  );
+}
+
+function getComicPlatformImageUrl(type) {
+  switch (type) {
+    case WEBTOON:
+      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/webtoon-logo.png?v=1709247000817'
+    case TAPAS:
+      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/tapas-logo.png?v=1709247199105'
+    case INKVERSE:
+      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/read-on-inkverse.gif?v=1709248895474';
+    case NAMICOMI:
+      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/namicomi-dark-logo.png?v=1709248894768';
+    case GLOBALCOMIX:
+      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/global-comix-logo.png?v=1709250085650';
+    case MANGAPLUS:
+      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/manga-plus-logo.png?v=1709250206178';
+    default:
+      return null;
+  }
 }
