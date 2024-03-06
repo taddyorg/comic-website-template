@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, Route, useParams } from "wouter";
 
 import { Loading } from '../components';
 
-import config from '../../data';
 import { getImageUrl } from '../../utils';
 
-export default function About() {
+export default function About({ comicseries }) {
   const [creators, setCreators] = useState(null);
   
   useEffect(() => {
     const fetchCreators = async () => {
       try {
-        const response = await axios.get(config.sssUrl);
-        const comicseries = response.data;
-        const creators = comicseries.creators;
-        const creatorsSSSUrl = creators.map(creator => creator.url);
+        const creatorsRaw = comicseries.creators;
+        const creatorsSSSUrl = creatorsRaw.map(creator => creator.url);
         const creatorsData = await Promise.all(creatorsSSSUrl.map(url => axios.get(url).then(res => res.data)));
         setCreators(creatorsData);
       } catch (error) {
@@ -31,14 +27,28 @@ export default function About() {
   }
 
   return (
-    <div className="my-16">
+    <div>
       <p>{`About the creator${creators.length > 1 ? 's' : ''}`}</p>
       {creators.map(creator => (
-        <div key={creator.id}>
-          <p>{creator.name}</p>
-          <p>{creator.role}</p>
-        </div>
+        <Creator 
+          key={creator.identifier} 
+          creator={creator} />
       ))}
     </div>
   );
 }
+
+const Creator = ({ creator }) => {
+  return (
+    <div>
+      <img 
+        src={getImageUrl({ image: creator.avatarImage, type: 'avatar', variant: 'md' })}
+        alt={creator.name}
+        className="h-24 w-24 rounded-full object-cover"
+      />
+      <p>{creator.name}</p>
+      <p>{creator.bio}</p>
+    </div>
+  );
+};
+

@@ -18,7 +18,7 @@ export default function ImageWithLoader({ imageUrl, imgClassName }){
   return (
     <div>
       {!isLoaded && 
-        <div className='flex w-full aspect-1 justify-center items-center'>
+        <div className='flex w-full py-40 justify-center items-center'>
           <svg className="animate-spin h-5 w-5 ml-2 mr-1" viewBox="0 0 24 24">
             <path
               className="opacity-75"

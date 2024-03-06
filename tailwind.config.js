@@ -17,7 +17,7 @@ module.exports = {
       },
       colors: {
         "background": config.colors.backgroundColor,
-        "secondary-background": config.colors.secondaryBackgroundColor,
+        "header-background": config.colors.headerBackgroundColour,
         "primary": config.colors.textColor,
         "secondary": config.colors.secondaryTextColor,
       },

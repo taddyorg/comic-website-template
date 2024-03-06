@@ -1,5 +1,7 @@
-import React from "react";
-import { Router } from "wouter";
+import React, { useState, useEffect } from "react";
+import { Router, useLocation } from "wouter";
+import axios from "axios";
+import config from "../data";
 
 // Import and apply Tailwind CSS stylesheet
 import "./styles/index.css";
@@ -8,19 +10,39 @@ import "./styles/index.css";
 import PageRouter from "./router.jsx";
 
 // The component that adds our Meta tags to the page
-import Seo from './components/seo.jsx';
-import Footer from './components/footer.jsx';
+import { Header, Footer, Loading } from './components'
 
 // Home function that is reflected across the site
-export default function Home() {
+export default function App() {
+  const [location, setLocation] = useLocation();
+  const [comicseries, setComicSeries] = useState(null);
+
+  const isHome = location === "/";
+
+  useEffect(() => {
+    axios.get(config.sssUrl)
+      .then(response => {
+        setComicSeries(response.data);
+      })
+      .catch(error => console.error("There was an error fetching the data:", error));
+  }, []);
+
+  if (!comicseries) {
+    return (
+      <div className="bg-background">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <Router>
       <div className="bg-background">
-        <Seo />
+        <Header comicseries={comicseries} showActionButton={!isHome}/>
         <main role="main">
-          <PageRouter />
+          <PageRouter comicseries={comicseries}/>
         </main>
-        <Footer/>
+        <Footer comicseries={comicseries}/>
       </div>
     </Router>
   );

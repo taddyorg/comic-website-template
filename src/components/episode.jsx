@@ -4,11 +4,11 @@ import { Link } from 'wouter';
 
 const Episode = ({ episode }) => {  
   return (
-    <Link className="flex flex-row" href={`/episodes/${episode.identifier}`}>
+    <Link className="flex flex-row pb-1" href={`/episodes/${episode.identifier}`}>
       <img
         src={getImageUrl({ image: episode.thumbnailImage, type:'thumbnail' })}
         alt={'comic cover art'}
-        className="h-50 aspect-1 rounded-sm object-contain object-center"
+        className="h-24 aspect-1 rounded-sm object-contain object-center"
       />
       <div className="flex flex-col">
         <h3 className="text-2xl font-bold">{episode.name}</h3>

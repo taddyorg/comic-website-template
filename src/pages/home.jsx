@@ -1,47 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import config from '../../data';
 import { getImageUrl } from '../../utils';
-import { Loading, Seo, Episode } from '../components';
-import { Link } from "wouter";
+import { Seo, Episode, AppLinks } from '../components';
 
-export default function Home() {
-  const [comicseries, setComicSeries] = useState(null);
-
-  useEffect(() => {
-    axios.get(config.sssUrl)
-      .then(response => {
-        setComicSeries(response.data);
-      })
-      .catch(error => console.error("There was an error fetching the data:", error));
-  }, []);
-
-  if (!comicseries) {
-    return <Loading />;
-  }
-
+export default function Home({ comicseries }) {
   return (
-    <div>
-      <CoverBanner comicseries={comicseries} />
-      {/* <Name comicseries={comicseries} /> */}
-      <WhereToReadLinks />
-      <LatestEpisodes comicseries={comicseries} numberOfEpisodes={5}/>
+    <div className='p-4 sm:p-6 lg:p-8'>
+      <CoverAndDescription comicseries={comicseries} />
+      {/* <div className="flex flex-col items-center justify-center"> */}
+        <LatestEpisodes comicseries={comicseries} numberOfEpisodes={5}/>
+      {/* </div> */}
     </div>
   );
 }
 
-const Name = ({ comicseries, pageType }) => {
-  return (<h1 className="text-9xl font-bold text-primary">{comicseries.name}</h1>);
-}
-
-const CoverBanner = ({ comicseries }) => {
+const CoverAndDescription = ({ comicseries }) => {
   return (
-    <div className="w-full">
-      <img
-        src={getImageUrl({ image: comicseries.bannerImage, type:'banner', variant: 'md' })}
-        alt={'comic banner art'}
-        className="w-full sm:h-80 object-cover"
-      />
+    <div className="flex flex-col sm:flex-row">
+      <div className="sm:w-1/2">
+        <img
+          src={getImageUrl({ image: comicseries.coverImage, type:'cover', variant: 'md' })}
+          alt={'comic banner art'}
+          className="aspect-4/6 sm:h-80 object-cover rounded-lg"
+        />
+      </div>
+      <div className="sm:w-1/2 flex flex-col justify-center items-center sm:items-start">
+        <p className="text-lg pt-2 sm:pt-0">{comicseries.description}</p>
+        <AppLinks page='home'/>
+      </div>
     </div>
   );
 }
@@ -56,96 +41,22 @@ const LatestEpisodes = ({ comicseries, numberOfEpisodes }) => {
   const lastXEpisodes = issues.slice(-Math.abs(numberOfEpisodes)).reverse();
 
   return (
-    <div>
-      <h2 className="text-4xl text-secondary font-bold">Latest Episodes</h2>
+    <div className="max-w-3xl mx-auto">
+      <h2 className="text-4xl text-secondary font-bold py-4">Latest Episodes</h2>
       <div>
         {lastXEpisodes.map((episode, index) => (
           <Episode key={index} episode={episode} />
         ))}
       </div>
       {comicseries.issues.length > numberOfEpisodes && (
-        <a href="/episodes" className="text-2xl text-secondary font-bold">See all episodes</a>
+        <a href="/episodes" className="flex flex-row text-2xl text-secondary font-bold py-2">
+          <p>See all episodes</p>
+          <img 
+          src="https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/arrow-carrot-right.svg?v=1709344933691" 
+          alt="Next Issue" 
+          className="" />
+      </a>
       )}
     </div>
   );
-}
-
-const WEBTOON = 'WEBTOON';
-const TAPAS = 'TAPAS';
-const INKVERSE = 'INKVERSE';
-const NAMICOMI = 'NAMICOMI';
-const GLOBALCOMIX = 'GLOBALCOMIX';
-const MANGAPLUS = 'MANGAPLUS';
-
-const WhereToReadLinks = () => {
-  const webtoonLinksObj = config.webtoonLinks;
-  const webtoonLinkValues = new Set(Object.values(webtoonLinksObj));
-  
-  if (webtoonLinkValues.size === 1 && webtoonLinkValues.has('')) {
-    return (<></>);
-  }
-
-  const webtoonUrl = webtoonLinksObj[WEBTOON];
-  const tapasUrl = webtoonLinksObj[TAPAS];
-  const inkverseUrl = webtoonLinksObj[INKVERSE];
-  const namicomiUrl = webtoonLinksObj[NAMICOMI];
-  const globalcomixUrl = webtoonLinksObj[GLOBALCOMIX];
-  const mangaplusUrl = webtoonLinksObj[MANGAPLUS];
-  
-  return (
-    <div className='bg-secondary-background pb-4 rounded-lg'>
-      <h2 className="text-4xl text-secondary font-bold text-center pt-4 rounded-4xl">Where to Read</h2>
-      <div className="grid grid-cols-3 gap-8 items-center justify-items-center">
-        {webtoonUrl && (
-          <ComicPlatform type={WEBTOON} url={webtoonUrl} />
-        )}
-        {tapasUrl && (
-          <ComicPlatform type={TAPAS} url={tapasUrl} />
-        )}
-        {inkverseUrl && (
-          <ComicPlatform type={INKVERSE} url={inkverseUrl} isBanner/>
-        )}
-        {namicomiUrl && (
-          <ComicPlatform type={NAMICOMI} url={namicomiUrl} />
-        )}
-        {globalcomixUrl && (
-          <ComicPlatform type={GLOBALCOMIX} url={globalcomixUrl} />
-        )}
-        {mangaplusUrl && (
-          <ComicPlatform type={MANGAPLUS} url={mangaplusUrl} />
-        )}
-      </div>
-    </div>
-  );
-}
-
-const ComicPlatform = ({ type, url, isBanner }) => {
-  return (
-    <a href={url} target='_blank' rel='noreferrer noopener' className={`flex justify-center items-center ${isBanner ? "h-40" : "h-24"}`}>
-      <img
-        src={getComicPlatformImageUrl(type)}
-        alt={`link to ${type}`}
-        className="object-contain object-center h-full"
-      />
-    </a>
-  );
-}
-
-function getComicPlatformImageUrl(type) {
-  switch (type) {
-    case WEBTOON:
-      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/webtoon-logo.png?v=1709247000817'
-    case TAPAS:
-      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/tapas-logo.png?v=1709247199105'
-    case INKVERSE:
-      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/read-on-inkverse.gif?v=1709248895474';
-    case NAMICOMI:
-      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/namicomi-dark-logo.png?v=1709248894768';
-    case GLOBALCOMIX:
-      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/global-comix-logo.png?v=1709250085650';
-    case MANGAPLUS:
-      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/manga-plus-logo.png?v=1709250206178';
-    default:
-      return null;
-  }
 }

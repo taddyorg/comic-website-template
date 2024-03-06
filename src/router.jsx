@@ -7,15 +7,15 @@ import Reader from "./pages/reader";
 import NotFound from "./pages/not-found";
 import ScrollToTop from "./components/scroll-to-top";
 
-export default () => (
+export default ({ comicseries }) => (
   <>
     <ScrollToTop />
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/about" component={About} />
-      <Route path="/episodes/" component={Episodes} />
-      <Route path="/episodes/:identifier" component={Reader} />
-      <Route component={NotFound} />
+      <Route path="/" component={() => <Home comicseries={comicseries} />} />
+      <Route path="/about" component={() => <About comicseries={comicseries} />} />
+      <Route path="/episodes/" component={() => <Episodes comicseries={comicseries} />} />
+      <Route path="/episodes/:identifier" component={() => <Reader comicseries={comicseries} />} />
+      <Route component={() => <NotFound comicseries={comicseries} />} />
     </Switch>
   </>
 );

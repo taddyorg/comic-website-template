@@ -4,12 +4,12 @@ import { Link } from "wouter";
 export default function Footer() {
   
   return (
-    <footer>
+    <footer className="py-4 flex justify-center">
       <div>
         <Link href="/">Home</Link>
-        <span>|</span>
+        <span> | </span>
         <Link href="/episodes">Episodes</Link>
-        <span>|</span>
+        <span> | </span>
         <Link href="/about">About</Link>
       </div>
     </footer>
