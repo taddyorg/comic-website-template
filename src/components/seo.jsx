@@ -1,9 +1,12 @@
 import * as React from "react";
 import { Helmet } from 'react-helmet-async';
+import config from "../../data";
 
-const Seo = ({ url, title, description, image }) => {
-  const seoUrl = url || window.location.href;
-  
+const Seo = ({ path, title, description, image }) => {
+  const seoUrl = config.customUrl
+    ?  config.customUrl + path
+    : window.location.href;
+
   return (
     <Helmet>
       <title>{title}</title>

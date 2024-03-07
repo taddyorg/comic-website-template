@@ -19,7 +19,7 @@ export default function AppLinks({ page }) {
   switch(page) {
     case 'home':
       return (
-        <div className="flex flex-wrap justify-center gap-6 pt-6">
+        <div className="flex flex-wrap justify-center gap-6 pt-6 px-4">
           <AppList webtoonLinksObj={webtoonLinksObj} />
         </div>
       );

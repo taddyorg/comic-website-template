@@ -32,6 +32,7 @@ export default function ImageWithLoader({ imageUrl, imgClassName }){
         className={imgClassName}
         ref={imageRef}
         src={imageUrl}
+        alt='Episode art'
         onLoad={onLoaded}/>
     </div>
   );

@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
-import { Episode } from '../components';
+
+import { Seo, Episode } from '../components';
+import { getImageUrl } from '../../utils';
 
 export default function Episodes({ comicseries }) {
   const [orderBy, setOrderBy] = useState('desc');
 
   return (
     <div className="max-w-3xl mx-auto p-4 sm:p-6 lg:p-8">
+      <Seo
+        path={`/episodes`}
+        title={comicseries.name + ' Episodes'}
+        description={'List of all episodes for ' + comicseries.name}
+        image={getImageUrl({ image: comicseries.bannerImage, type:'banner', variant: 'md' })}
+      />
       <SortBy orderBy={orderBy} setOrderBy={setOrderBy} />
       <EpisodeList comicseries={comicseries} orderBy={orderBy} />
     </div>

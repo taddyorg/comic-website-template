@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Route, useParams } from "wouter";
+import { Link, useParams } from "wouter";
 
-import { ArrowLeft, ArrowRight, ImageWithLoader } from '../components';
+import { Seo, ArrowLeft, ArrowRight, ImageWithLoader } from '../components';
 
 import { getImageUrl } from '../../utils';
 
@@ -20,6 +20,12 @@ export default function Reader({ comicseries }) {
 
   return (
     <div className="md:flex md:flex-col md:items-center md:justify-center">
+      <Seo
+        path={`/episodes/${comicissue.identifier}`}
+        title={`${comicissue.name} - ${comicseries.name}`}
+        description={`Episode: ${comicissue.name} from ${comicseries.name}`}
+        image={getImageUrl({ image: comicissue.bannerImage, type:'banner', variant: 'md' })}
+      />
       <EpisodesBox 
         comicissue={comicissue} 
         previousComicissue={previousComicissue}

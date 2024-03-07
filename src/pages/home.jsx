@@ -5,6 +5,12 @@ import { Seo, Episode, AppLinks, ArrowLeft, ArrowRight } from '../components';
 export default function Home({ comicseries }) {
   return (
     <>
+      <Seo
+        path={`/`}
+        title={comicseries.name}
+        description={comicseries.description}
+        image={getImageUrl({ image: comicseries.bannerImage, type:'banner', variant: 'md' })}
+      />
       <CoverAndDescription comicseries={comicseries} />
       <LatestEpisodes comicseries={comicseries} numberOfEpisodes={5}/>
     </>
@@ -13,7 +19,7 @@ export default function Home({ comicseries }) {
 
 const CoverAndDescription = ({ comicseries }) => {
   return (
-    <div className="flex flex-col sm:flex-row p-4">
+    <div className="flex flex-col sm:flex-row py-4 px-14 sm:px-4">
       <div className="sm:w-1/2 flex flex-col justify-center items-center">
         <img
           src={getImageUrl({ image: comicseries.coverImage, type:'cover', variant: 'md' })}
@@ -21,8 +27,8 @@ const CoverAndDescription = ({ comicseries }) => {
           className="aspect-4/6 sm:h-80 object-cover rounded-lg"
         />
       </div>
-      <div className="sm:w-1/2">
-        <h1 className="text-4xl font-bold pt-2 sm:pt-0">{comicseries.name}</h1>
+      <div className="sm:w-1/2 mr-2">
+        <h1 className="text-4xl font-bold pt-4 sm:pt-0">{comicseries.name}</h1>
         <p className="text-lg mt-2">{comicseries.description}</p>
         <AppLinks page='home'/>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { Loading, SocialMediaLinks } from '../components';
+import { Seo, Loading, SocialMediaLinks } from '../components';
 
 import { getImageUrl } from '../../utils';
 
@@ -28,6 +28,12 @@ export default function About({ comicseries }) {
 
   return (
     <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+      <Seo
+        path={`/about`}
+        title={'About the creator'}
+        description={'Links and details about the creator'}
+        image={getImageUrl({ image: comicseries.bannerImage, type:'banner', variant: 'md' })}
+      />
       <p className='text-2xl font-bold text-center mb-4'>{`About the creator${creators.length > 1 ? 's' : ''}`}</p>
       {creators.map(creator => (
         <Creator 

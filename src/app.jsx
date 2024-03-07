@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Router, useLocation } from "wouter";
 import axios from "axios";
 import config from "../data";
+import ReactGA from "react-ga4";
 
 // Import and apply Tailwind CSS stylesheet
 import "./styles/index.css";
@@ -25,6 +26,7 @@ export default function App() {
         setComicSeries(response.data);
       })
       .catch(error => console.error("There was an error fetching the data:", error));
+    ReactGA.initialize(config.googleAnalyticsId);
   }, []);
 
   if (!comicseries) {
