@@ -28,11 +28,7 @@ export default function App() {
   }, []);
 
   if (!comicseries) {
-    return (
-      <div className="bg-background">
-        <Loading />
-      </div>
-    );
+    return <Loading />;
   }
 
   return (

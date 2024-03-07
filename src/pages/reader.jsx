@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Route, useParams } from "wouter";
 
-import { ImageWithLoader } from '../components';
+import { ArrowLeft, ArrowRight, ImageWithLoader } from '../components';
 
 import { getImageUrl } from '../../utils';
 
@@ -46,21 +46,13 @@ function Stories({ comicissue, previousComicissue, nextComicissue }){
       <div className="flex justify-center items-center">
         {previousComicissue && (
           <Link href={`/episodes/${previousComicissue.identifier}`}>
-            <img 
-              src="https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/arrow-carrot-left.svg?v=1709344935890" 
-              alt="Previous Issue" 
-              className="mr-2"
-            />
+            <ArrowLeft />
           </Link>
         )}
         <p className='py-6 text-lg font-bold text-center'>{comicissue.name}</p>
         {nextComicissue && (
           <Link href={`/episodes/${nextComicissue.identifier}`}>
-            <img 
-              src="https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/arrow-carrot-right.svg?v=1709344933691" 
-              alt="Next Issue" 
-              className="ml-2"
-            />
+            <ArrowRight />
           </Link>
         )}
       </div>
@@ -92,7 +84,7 @@ const LoadNextEpisode = ({ comicissue }) => {
           :  <Link
               href={`/episodes/${comicissue.identifier}`}
               type="button"
-              className="flex flex-col items-center px-4 py-2 border border-transparent text-sm leading-5 font-bold rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:border-gray-700 focus:shadow-outline-gray active:bg-gray-700 transition ease-in-out duration-150"
+              className="flex flex-col items-center px-4 py-2 border border-transparent text-sm leading-5 font-bold rounded-md text-white bg-primary"
             >
               Next Episode
             </Link>

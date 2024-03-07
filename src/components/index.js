@@ -5,9 +5,10 @@ import Loading from './loading'
 import Seo from './seo'
 import ImageWithLoader from './image-with-loader'
 import AppLinks from './app-links'
+import SocialMediaLinks from './social-media-links'
+import { ArrowRight, ArrowLeft } from './arrow'
 
-
-export { 
+export {
   Episode, 
   Header,
   Footer, 
@@ -15,4 +16,7 @@ export {
   Seo,
   ImageWithLoader,
   AppLinks,
+  SocialMediaLinks,
+  ArrowRight,
+  ArrowLeft,
 };

@@ -19,7 +19,7 @@ export default function AppLinks({ page }) {
   switch(page) {
     case 'home':
       return (
-        <div className="flex flex-wrap justify-center gap-6 py-2">
+        <div className="flex flex-wrap justify-center gap-6 pt-6">
           <AppList webtoonLinksObj={webtoonLinksObj} />
         </div>
       );
@@ -82,7 +82,7 @@ function getComicPlatformImageUrl(type) {
     case TAPAS:
       return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/tapas-logo.png?v=1709247199105'
     case INKVERSE:
-      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/read-on-inkverse.gif?v=1709248895474';
+      return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/inkverse-mascot-1.png?v=1709766135136';
     case NAMICOMI:
       return 'https://cdn.glitch.global/3d48cd4c-11ef-4263-8b17-e27a943987f0/namicomi-icon-2.png?v=1709347508443';
     case GLOBALCOMIX:
