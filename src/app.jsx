@@ -14,7 +14,7 @@ import { Header, Footer, Loading } from './components'
 
 // Home function that is reflected across the site
 export default function App() {
-  const [location, setLocation] = useLocation();
+  const [location] = useLocation();
   const [comicseries, setComicSeries] = useState(null);
 
   const isHome = location === "/";

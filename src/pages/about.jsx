@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { Loading } from '../components';
+import { Loading, SocialMediaLinks } from '../components';
 
 import { getImageUrl } from '../../utils';
 
@@ -27,13 +27,14 @@ export default function About({ comicseries }) {
   }
 
   return (
-    <div>
-      <p>{`About the creator${creators.length > 1 ? 's' : ''}`}</p>
+    <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+      <p className='text-2xl font-bold text-center mb-4'>{`About the creator${creators.length > 1 ? 's' : ''}`}</p>
       {creators.map(creator => (
         <Creator 
           key={creator.identifier} 
           creator={creator} />
       ))}
+      <CustomHtml />
     </div>
   );
 }
@@ -41,14 +42,26 @@ export default function About({ comicseries }) {
 const Creator = ({ creator }) => {
   return (
     <div>
-      <img 
-        src={getImageUrl({ image: creator.avatarImage, type: 'avatar', variant: 'md' })}
-        alt={creator.name}
-        className="h-24 w-24 rounded-full object-cover"
-      />
-      <p>{creator.name}</p>
-      <p>{creator.bio}</p>
+      <div className='flex flex-col items-center'>
+        <img 
+          src={getImageUrl({ image: creator.avatarImage, type: 'avatar', variant: 'md' })}
+          alt={creator.name}
+          className="h-24 w-24 rounded-full object-cover"
+        />
+        <p className='text-lg font-bold mt-2'>{creator.name}</p>
+        <SocialMediaLinks links={creator.links} />
+      </div>
+      <div>
+        <p className='text-md pt-4'>{creator.bio}</p>
+      </div>
     </div>
+  );
+};
+
+// You can add some custom html here if you'd like
+const CustomHtml = ({ }) => {
+  return (
+    <></>
   );
 };
 
