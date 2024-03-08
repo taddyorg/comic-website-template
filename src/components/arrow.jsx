@@ -1,5 +1,4 @@
 import * as React from "react";
-import { getImageUrl, parseDate } from '../../utils';
 import config from "../../data";
 
 function getSvg({ direction, fillColor }) {

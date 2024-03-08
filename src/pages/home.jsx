@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getImageUrl } from '../../utils';
+import { getImageUrl } from '../utils';
 import { Seo, Episode, AppLinks, ArrowLeft, ArrowRight } from '../components';
 
 export default function Home({ comicseries }) {

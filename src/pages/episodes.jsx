@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Seo, Episode } from '../components';
-import { getImageUrl } from '../../utils';
+import { getImageUrl } from '../utils';
 
 export default function Episodes({ comicseries }) {
   const [orderBy, setOrderBy] = useState('desc');

@@ -1,8 +1,11 @@
 import * as React from "react";
-import { getImageUrl, parseDate } from '../../utils';
 import { Link } from 'wouter';
 
+import { getImageUrl, parseDate } from '../utils';
+
 const Episode = ({ episode }) => {  
+  const scopesForExclusiveContentSet = new Set(episode.scopesForExclusiveContent || []);
+  const isPatreon = scopesForExclusiveContentSet.has('patreon');
   return (
     <Link className="flex flex-row pb-1" href={`/episodes/${episode.identifier}`}>
       <img
@@ -13,6 +16,9 @@ const Episode = ({ episode }) => {
       <div className="flex flex-col px-2">
         <h3 className="text-2xl font-bold">{episode.name}</h3>
         <p className="text-lg">{episode.datePublished ? parseDate({ date: episode.datePublished }) : ''}</p>
+        {isPatreon && 
+          <p className="text-lg text-secondary">🔒 Patreon Exclusive</p>
+        }
       </div>
     </Link>
   );

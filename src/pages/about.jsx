@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { Seo, Loading, SocialMediaLinks } from '../components';
 
-import { getImageUrl } from '../../utils';
+import { getImageUrl } from '../utils';
 
 export default function About({ comicseries }) {
   const [creators, setCreators] = useState(null);
@@ -57,7 +57,7 @@ const Creator = ({ creator }) => {
         <p className='text-lg font-bold mt-2'>{creator.name}</p>
         <SocialMediaLinks links={creator.links} />
       </div>
-      <div>
+      <div className="text-center">
         <p className='text-md pt-4'>{creator.bio}</p>
       </div>
     </div>

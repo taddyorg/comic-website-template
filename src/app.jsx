@@ -26,7 +26,9 @@ export default function App() {
         setComicSeries(response.data);
       })
       .catch(error => console.error("There was an error fetching the data:", error));
-    ReactGA.initialize(config.googleAnalyticsId);
+    {config.googleAnalyticsId &&
+      ReactGA.initialize(config.googleAnalyticsId);      
+    }
   }, []);
 
   if (!comicseries) {
