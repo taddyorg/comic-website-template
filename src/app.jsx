@@ -17,17 +17,41 @@ import { Header, Footer, Loading } from './components'
 export default function App() {
   const [location] = useLocation();
   const [comicseries, setComicSeries] = useState(null);
+  const [creators, setCreators] = useState(null);
 
   const isHome = location === "/";
 
   useEffect(() => {
-    axios.get(config.sssUrl)
-      .then(response => {
-        setComicSeries(response.data);
-      })
-      .catch(error => console.error("There was an error fetching the data:", error));
-    {config.googleAnalyticsId &&
-      ReactGA.initialize(config.googleAnalyticsId);      
+    const fetchComicSeries = async () => {
+      try {
+        const response = await axios.get(config.sssUrl);
+        if (response.data) {
+          setComicSeries(response.data);
+        }
+      } catch (error) {
+        console.error("There was an error fetching the comic series data:", error);
+      }
+    };
+
+    const fetchCreators = async () => {
+      try {
+        const response = await axios.get(config.sssUrl);
+        if (response.data && response.data.creators) {
+          const creatorsRaw = response.data.creators;
+          const creatorsSSSUrl = creatorsRaw.map(creator => creator.url);
+          const creatorsData = await Promise.all(creatorsSSSUrl.map(url => axios.get(url).then(res => res.data)));
+          setCreators(creatorsData);
+        }
+      } catch (error) {
+        console.error("There was an error fetching the creators data:", error);
+      }
+    };
+
+    fetchComicSeries();
+    fetchCreators();
+    
+    if (config.googleAnalyticsId) {
+      ReactGA.initialize(config.googleAnalyticsId);
     }
   }, []);
 
@@ -38,11 +62,11 @@ export default function App() {
   return (
     <Router>
       <div className="bg-background">
-        <Header comicseries={comicseries} showActionButton={!isHome}/>
+        <Header comicseries={comicseries} creators={creators} showActionButton={!isHome}/>
         <main role="main">
-          <PageRouter comicseries={comicseries}/>
+          <PageRouter comicseries={comicseries} creators={creators}/>
         </main>
-        <Footer comicseries={comicseries}/>
+        <Footer comicseries={comicseries} creators={creators}/>
       </div>
     </Router>
   );

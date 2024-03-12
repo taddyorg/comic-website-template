@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getSafeFullLink, allSocialMediaLinkTypesSet, getSocialMediaLinkImageUrl } from "../../utils";
+import { getSafeFullLink, allSocialMediaLinkTypesSet, getSocialMediaLinkImageUrl } from "../utils";
 
 export default function SocialMediaLinks({ links }) {  
   const supportedLinks = links.filter(link => allSocialMediaLinkTypesSet.has(link.type))

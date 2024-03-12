@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'wouter';
 import { getImageUrl } from '../utils';
 import { Seo, Episode, AppLinks, ArrowLeft, ArrowRight } from '../components';
+
 
 export default function Home({ comicseries }) {
   return (
@@ -28,8 +30,8 @@ const CoverAndDescription = ({ comicseries }) => {
         />
       </div>
       <div className="sm:w-1/2 mr-2">
-        <h1 className="text-4xl font-bold pt-4 sm:pt-0">{comicseries.name}</h1>
-        <p className="text-lg mt-2">{comicseries.description}</p>
+        <h1 className="text-4xl font-bold pt-4 sm:pt-0 text-primary">{comicseries.name}</h1>
+        <p className="text-lg mt-2 text-primary">{comicseries.description}</p>
         <AppLinks page='home'/>
       </div>
     </div>
@@ -54,10 +56,10 @@ const LatestEpisodes = ({ comicseries, numberOfEpisodes }) => {
         ))}
       </div>
       {comicseries.issues.length > numberOfEpisodes && (
-        <a href="/episodes" className="flex flex-row text-2xl text-secondary font-bold py-2">
+        <Link href="/episodes" className="flex flex-row text-2xl text-secondary font-bold py-2">
           <p>See all episodes</p>
           <ArrowRight color="secondary" />
-      </a>
+        </Link>
       )}
     </div>
   );

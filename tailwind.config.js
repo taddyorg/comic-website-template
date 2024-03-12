@@ -20,6 +20,8 @@ module.exports = {
         "header-background": config.colors.headerBackgroundColour,
         "primary": config.colors.textColor,
         "secondary": config.colors.secondaryTextColor,
+        "button": config.colors.buttonTextColor,
+        "button-background": config.colors.buttonBackgroundColor,
       },
     },
   },

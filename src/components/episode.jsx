@@ -14,8 +14,8 @@ const Episode = ({ episode }) => {
         className="h-24 aspect-1 rounded-sm object-contain object-center"
       />
       <div className="flex flex-col px-2">
-        <h3 className="text-2xl font-bold">{episode.name}</h3>
-        <p className="text-lg">{episode.datePublished ? parseDate({ date: episode.datePublished }) : ''}</p>
+        <h3 className="text-2xl font-bold text-primary">{episode.name}</h3>
+        <p className="text-lg text-primary">{episode.datePublished ? parseDate({ date: episode.datePublished }) : ''}</p>
         {isPatreon && 
           <p className="text-lg text-secondary">🔒 Patreon Exclusive</p>
         }

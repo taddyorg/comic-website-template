@@ -33,7 +33,8 @@ const SortBy = ({ orderBy, setOrderBy }) => {
 const SortByButton = ({ orderBy, setOrderBy, value, label }) => {
   return (
     <button 
-      onClick={() => setOrderBy(value)} 
+      onClick={() => setOrderBy(value)}
+      className='text-primary hover:underline'
       style={{fontWeight: orderBy === value ? 'bold' : 'normal'}}>
         {label}
     </button>
