@@ -16,3 +16,7 @@ The project is structured as follows:
 - `src/pages/`: This is the pages folder. This website is made up of 7 pages, all of them can be found here.
 - `src/components/`: This is the components folder. All the components that are used in pages are located here.
 - `src/styles/`: This is the styles folder. You can edit the font here or custom css here.
+- `src/app.jsx`: The inital screen, this is where the SSS feed is downloaded and passed down to the pages.
+- `src/utils.js`: All the utils that are used in the project are located here.
+
+This project uses React.js, TailwindCSS and Vite.js.
