@@ -13,6 +13,6 @@ If you're a developer and you want to run this project locally, you can do so by
 
 The project is structured as follows:
 - `src/`: This is the source folder. All the source code is located.
-- `src/pages/`: This is the pages folder. All the main pages are located.
+- `src/pages/`: This is the pages folder. This website is made up of 7 pages, all of them can be found here.
 - `src/components/`: This is the components folder. All the components that are used in pages are located here.
 - `src/styles/`: This is the styles folder. You can edit the font here or custom css here.
