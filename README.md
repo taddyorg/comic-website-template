@@ -20,3 +20,15 @@ The project is structured as follows:
 - `src/utils.js`: All the utils that are used in the project are located here.
 
 This project uses React.js, TailwindCSS and Vite.js.
+
+## Glitch
+
+You can find the deloyed version of the project [on Glitch](https://glitch.com/~webtoon-website-template). We use Glitch because it's free and easy to use. You can "remix" the project, which is like "forking" the project. This means you can make a copy of this template and easily make and view changes. 
+
+## Contributing
+
+If you want to contribute to this project, please fork the repository and make a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
