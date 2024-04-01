@@ -1,4 +1,11 @@
-# Are you a developer? - You can run this project locally
+# Webtoon Website Template
+This is a simple webtoon website template that you can use to create your own webtoon website.
+
+## Demo
+
+[https://webtoonwebsitetemplate.com](https://webtoonwebsitetemplate.com)
+
+## Are you a developer? - You can run this project locally
 
 If you're a developer and you want to run this project locally, you can do so by following these steps:
 
@@ -23,11 +30,7 @@ This project uses React.js, TailwindCSS and Vite.js.
 
 ## Glitch
 
-You can find the deloyed version of the project [on Glitch](https://glitch.com/~webtoon-website-template). We use Glitch because it's free and easy to use. You can "remix" the project, which is like "forking" the project. This means you can make a copy of this template and easily make and view changes. 
-
-## Contributing
-
-If you want to contribute to this project, please fork the repository and make a pull request.
+You can find the deloyed version of the project [on Glitch](https://glitch.com/~webtoon-website-template). We use Glitch because it's free and easy to use. You can "remix" the project, which is like "forking" the project. This means you can make a copy of this template and easily make and view changes.
 
 ## License
 
