@@ -5,6 +5,10 @@ This is a simple webtoon website template that you can use to create your own we
 
 [https://webtoonwebsitetemplate.com](https://webtoonwebsitetemplate.com)
 
+## Glitch
+
+You can use Glitch to make your own comic website (It's free!). Check out the project right [here](https://glitch.com/~webtoon-website-template). Just hit "Remix" on the project, which is like "forking" the project. This means you got your own version to tweak and play around with as much as you like.
+
 ## Are you a developer? - You can run this project locally
 
 If you're a developer and you want to run this project locally, you can do so by following these steps:
@@ -27,10 +31,6 @@ The project is structured as follows:
 - `src/utils.js`: All the utils that are used in the project are located here.
 
 This project uses React.js, TailwindCSS and Vite.js.
-
-## Glitch
-
-You can find the deloyed version of the project [on Glitch](https://glitch.com/~webtoon-website-template). We use Glitch because it's free and easy to use. You can "remix" the project, which is like "forking" the project. This means you can make a copy of this template and easily make and view changes.
 
 ## License
 
